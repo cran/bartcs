@@ -7,25 +7,26 @@
 #' @param ... Additional arguments. Not yet supported.
 #'
 #' @details
-#' `summary()` computes Gelman-Rubin diagnostic and
-#' 95% posterior credible interval for both
-#' aggregated outcome and individual outcomes from each chain.
+#' `summary()` provides the Gelman-Rubin diagnostic value and
+#' 95% posterior credible interval for both aggregated outcome and
+#' individual outcomes from each MCMC chain.
 #'
 #' @return
-#' Provide list with following components.
+#' Provide list with the following components
 #'
-#' \item{model}{`sbart` or `mbart`.}
+#' \item{model}{`separate_bart` or `single_bart`.}
 #' \item{trt_value}{Treatment values for each treatment group:
-#'   `trt_treated` for treatment group and `trt_control` for control group.}
-#' \item{tree_params}{Parameters used for tree structure.}
-#' \item{chain_params}{Parameters used for MCMC chains.}
+#'   `trt_treated` for the treatment group and `trt_control` for
+#' the control group.}
+#' \item{tree_params}{Parameters for the tree structure.}
+#' \item{chain_params}{Parameters for MCMC chains.}
 #' \item{gelman_rubin}{Gelman-Rubin diagnostic value.}
 #' \item{outcome}{Summary of outcomes from the model. This includes
-#'   both aggregated outcome and individual outcomes from each chain.}
+#'   both aggregated outcome and individual outcomes from each MCMC chain.}
 #'
 #' @examples
 #' data(ihdp, package = "bartcs")
-#' x <- mbart(
+#' x <- single_bart(
 #'   Y               = ihdp$y_factual,
 #'   trt             = ihdp$treatment,
 #'   X               = ihdp[, 6:30],
@@ -83,13 +84,13 @@ summary.bartcs <- function(object, ...) {
     est <- estimand[i]
     outcome[(idx + 1):(idx + num_chain), 3:ncol(outcome)] <- t(vapply(
       seq_len(num_chain),
-      function(chain_idx) t(c(
+      function(chain_idx) {t(c(
         stats::quantile(object$chains[[chain_idx]][[est]],
                         probs = c(0.025, 0.25)),
         mean(object$chains[[chain_idx]][[est]]),
         stats::quantile(object$chains[[chain_idx]][[est]],
                         probs = c(0.5, 0.75, 0.975))
-      )),
+      ))},
       numeric(6)
     ))
     outcome[idx + num_chain + 1, 3:ncol(outcome)] <- c(
@@ -108,7 +109,7 @@ summary.bartcs <- function(object, ...) {
 print.bartcs_summary <- function(x, ...) {
   width = 6
   cat(
-    "`bartcs` fit by `", x$model, "()`", "\n",
+    "`bartcs` fit by `", x$model, "_bart()`", "\n",
     "\n", sep = ""
   )
   cat(
@@ -152,5 +153,4 @@ print.bartcs_summary <- function(x, ...) {
     "Outcome \n"
   )
   print(x$outcome, row.names = FALSE)
-  cat("\n")
 }

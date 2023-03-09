@@ -13,11 +13,12 @@ gelman_rubin(x)
 Gelman-Rubin diagnostic value.
 }
 \description{
-\code{gelman_rubin()} computes Gelman-Rubin diagnostic for \code{bartcs} objects.
+\code{gelman_rubin()} computes Gelman-Rubin diagnostic (1992) for monitoring
+convergence of MCMC outputs when \code{num_chain} > 1.
 }
 \examples{
 data(ihdp, package = "bartcs")
-x <- mbart(
+x <- single_bart(
   Y               = ihdp$y_factual,
   trt             = ihdp$treatment,
   X               = ihdp[, 6:30],
@@ -30,4 +31,9 @@ x <- mbart(
 
 gelman_rubin(x)
 
+}
+\references{
+Gelman, A and Rubin, DB (1992)
+Inference from iterative simulation using multiple sequences.
+\emph{Statistical Science}, 7, 457-511.
 }

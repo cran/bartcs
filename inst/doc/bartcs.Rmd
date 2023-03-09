@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
+set.seed(42)
 library(bartcs)
 ```
 
@@ -31,7 +32,7 @@ The dataset includes 6 continuous and 19 binary covariates with simulated outcom
 ```{r load and fit}
 data(ihdp, package = "bartcs")
 
-fit <- mbart(
+fit <- single_bart(
   Y               = ihdp$y_factual,
   trt             = ihdp$treatment,
   X               = ihdp[, 6:30],
@@ -48,7 +49,7 @@ You can get mean and 95% credible interval of average treatment effect (ATE) and
 
 ## Result
 
-Both `sbart()` and `mbart()` fits multiple MCMC chains. 
+Both `separate_bart()` and `single_bart()` fits multiple MCMC chains. 
 `summary()` provides result and Gelman-Rubin statistic to check convergence. 
 
 ```{r summary}
@@ -76,8 +77,8 @@ With `trace_plot()`, you can visually check trace of effects or other parameters
 plot(fit, method = "trace")
 ```
 
-```{r trace plots dir_alpha}
-plot(fit, method = "trace", "dir_alpha")
+```{r trace plots alpha}
+plot(fit, method = "trace", "alpha")
 ```
 
 ## Multi-threading
@@ -90,15 +91,15 @@ Check whether OpenMP is supported. You need more than 1 thread for multi-threadi
 Due to overhead of multi-threading, using parallelization will be not effective with small and moderate datasets.
 I recommend parallelization for data with size of at least 10,000.
 
-For comparison purpose, I will create dataset with 20,000 rows by bootstrapping from IHDP dataset.
+For comparison purpose, I will create dataset with 40,000 rows by bootstrapping from IHDP dataset.
 Then, for fast computation, I will set most parameters to 1.
 
 ```{r multi-threading performance}
-idx  <- sample(nrow(ihdp), 2e4, TRUE)
+idx  <- sample(nrow(ihdp), 4e4, TRUE)
 ihdp <- ihdp[idx, ]
 
 microbenchmark::microbenchmark(
-  simple_mbart = mbart(
+  simple = single_bart(
     Y               = ihdp$y_factual,
     trt             = ihdp$treatment,
     X               = ihdp[, 6:30],
@@ -109,7 +110,7 @@ microbenchmark::microbenchmark(
     verbose         = FALSE,
     parallel        = FALSE
   ),
-  parallel_mbart = mbart(
+  parallel = single_bart(
     Y               = ihdp$y_factual,
     trt             = ihdp$treatment,
     X               = ihdp[, 6:30],

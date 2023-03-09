@@ -12,25 +12,25 @@
 \item{method}{"\code{pip}" for posterior inclusion probability plot
 or "\code{trace}" for trace plot.}
 
-\item{parameter}{Target of parameter for traceplot.}
+\item{parameter}{Parameter for traceplot.}
 
-\item{...}{Additional arguments for pip plot.
+\item{...}{Additional arguments for PIP plot.
 Check \code{?ggcharts::bar_chart} for possible arguments.}
 }
 \value{
-A \code{ggplot} object of either pip plot or trace plot.
+A \code{ggplot} object of either PIP plot or trace plot.
 }
 \description{
 Two options are available:
-posterior inclusion probability (pip) plot and trace plot.
+posterior inclusion probability (PIP) plot and trace plot.
 }
 \details{
 \subsection{PIP plot}{
 
 When a posterior sample is sampled during training,
-\code{sbart()} or \code{mbart()} also counts
+\code{separate_bart()} or \code{single_bart()} also counts
 which variables are included in the model and
-compute pip for each variable.
+compute PIP for each variable.
 For \code{bartcs} object \code{x},
 this is stored in \code{x$var_count} and \code{x$var_prob} respectively.
 \code{plot(method = "pip")} uses this information and
@@ -41,14 +41,15 @@ draws plot using \code{ggcharts::bar_chart()}.
 
 Parameters are recorded for each MCMC iterations.
 Parameters include "\code{ATE}", "\code{Y1}", "\code{Y0}", "\code{dir_alpha}",
-and either "\code{sigma2_out}" from \code{mbart()}
-or "\code{sigma2_out1}" and "\code{sigma2_out0}" from \code{sbart()}.
+and either "\code{sigma2_out}" from \code{single_bart()}
+or "\code{sigma2_out1}" and "\code{sigma2_out0}" from \cr
+\code{separate_bart()}.
 Vertical line indicates burn-in.
 }
 }
 \examples{
 data(ihdp, package = "bartcs")
-x <- mbart(
+x <- single_bart(
   Y               = ihdp$y_factual,
   trt             = ihdp$treatment,
   X               = ihdp[, 6:30],
@@ -59,7 +60,7 @@ x <- mbart(
   verbose         = FALSE
 )
 
-# pip plot
+# PIP plot
 plot(x, method = "pip")
 plot(x, method = "pip", top_n = 10)
 plot(x, method = "pip", threshold = 0.5)

@@ -5,12 +5,13 @@ knitr::opts_chunk$set(
 )
 
 ## ----setup--------------------------------------------------------------------
+set.seed(42)
 library(bartcs)
 
 ## ----load and fit-------------------------------------------------------------
 data(ihdp, package = "bartcs")
 
-fit <- mbart(
+fit <- single_bart(
   Y               = ihdp$y_factual,
   trt             = ihdp$treatment,
   X               = ihdp[, 6:30],
@@ -35,18 +36,18 @@ plot(fit, method = "pip", threshold = 0.5)
 ## ----trace plots eff----------------------------------------------------------
 plot(fit, method = "trace")
 
-## ----trace plots dir_alpha----------------------------------------------------
-plot(fit, method = "trace", "dir_alpha")
+## ----trace plots alpha--------------------------------------------------------
+plot(fit, method = "trace", "alpha")
 
 ## ----count omp thread---------------------------------------------------------
 count_omp_thread()
 
 ## ----multi-threading performance----------------------------------------------
-idx  <- sample(nrow(ihdp), 2e4, TRUE)
+idx  <- sample(nrow(ihdp), 4e4, TRUE)
 ihdp <- ihdp[idx, ]
 
 microbenchmark::microbenchmark(
-  simple_mbart = mbart(
+  simple = single_bart(
     Y               = ihdp$y_factual,
     trt             = ihdp$treatment,
     X               = ihdp[, 6:30],
@@ -57,7 +58,7 @@ microbenchmark::microbenchmark(
     verbose         = FALSE,
     parallel        = FALSE
   ),
-  parallel_mbart = mbart(
+  parallel = single_bart(
     Y               = ihdp$y_factual,
     trt             = ihdp$treatment,
     X               = ihdp[, 6:30],
