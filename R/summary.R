@@ -7,9 +7,8 @@
 #' @param ... Additional arguments. Not yet supported.
 #'
 #' @details
-#' `summary()` provides the Gelman-Rubin diagnostic value and
-#' 95% posterior credible interval for both aggregated outcome and
-#' individual outcomes from each MCMC chain.
+#' `summary()` provides 95% posterior credible interval for both
+#' aggregated outcome and individual outcomes from each MCMC chain.
 #'
 #' @return
 #' Provide list with the following components
@@ -20,7 +19,6 @@
 #' the control group.}
 #' \item{tree_params}{Parameters for the tree structure.}
 #' \item{chain_params}{Parameters for MCMC chains.}
-#' \item{gelman_rubin}{Gelman-Rubin diagnostic value.}
 #' \item{outcome}{Summary of outcomes from the model. This includes
 #'   both aggregated outcome and individual outcomes from each MCMC chain.}
 #'
@@ -64,8 +62,6 @@ summary.bartcs <- function(object, ...) {
     num_thin        = object$params$num_thin
   )
 
-  res$gelman_rubin <- gelman_rubin(object)
-
   outcome <- data.frame(
     estimand    = character(),
     chain       = factor(levels = c(seq_len(num_chain), "agg")),
@@ -85,18 +81,19 @@ summary.bartcs <- function(object, ...) {
     outcome[(idx + 1):(idx + num_chain), 3:ncol(outcome)] <- t(vapply(
       seq_len(num_chain),
       function(chain_idx) {t(c(
-        stats::quantile(object$chains[[chain_idx]][[est]],
+        stats::quantile(object$mcmc_outcome[[chain_idx]][, est],
                         probs = c(0.025, 0.25)),
-        mean(object$chains[[chain_idx]][[est]]),
-        stats::quantile(object$chains[[chain_idx]][[est]],
+        mean(object$mcmc_outcome[[chain_idx]][, i]),
+        stats::quantile(object$mcmc_outcome[[chain_idx]][, est],
                         probs = c(0.5, 0.75, 0.975))
       ))},
       numeric(6)
     ))
+    mat <- do.call("rbind", object$mcmc_outcome)
     outcome[idx + num_chain + 1, 3:ncol(outcome)] <- c(
-      stats::quantile(object[[est]], probs = c(0.025, 0.25)),
-      mean(object[[est]]),
-      stats::quantile(object[[est]], probs = c(0.5, 0.75, 0.975))
+      stats::quantile(mat[, est], probs = c(0.025, 0.25)),
+      mean(mat[, est]),
+      stats::quantile(mat[, est], probs = c(0.5, 0.75, 0.975))
     )
   }
   res$outcome <- outcome
@@ -144,11 +141,6 @@ print.bartcs_summary <- function(x, ...) {
     "\n", sep = ""
   )
 
-  cat(
-    "Outcome Diagnostics\n",
-    "  Gelman-Rubin     : ", format(x$gelman_rubin, width = width), "\n",
-    "\n", sep = ""
-  )
   cat(
     "Outcome \n"
   )

@@ -23,6 +23,16 @@ fit <- single_bart(
 )
 fit
 
+## ----compare result-----------------------------------------------------------
+ATE <- mean(ihdp$mu1 - ihdp$mu0)
+ATE
+mu1 <- mean(ihdp$mu1)
+mu1
+mu0 <- mean(ihdp$mu0)
+mu0
+mse <- mean((unlist(fit$mcmc_outcome[, "ATE"]) - ATE)^2)
+mse
+
 ## ----summary------------------------------------------------------------------
 summary(fit)
 
@@ -36,8 +46,8 @@ plot(fit, method = "pip", threshold = 0.5)
 ## ----trace plots eff----------------------------------------------------------
 plot(fit, method = "trace")
 
-## ----trace plots alpha--------------------------------------------------------
-plot(fit, method = "trace", "alpha")
+## ----coda---------------------------------------------------------------------
+coda::gelman.diag(fit$mcmc_outcome[, "ATE"])
 
 ## ----count omp thread---------------------------------------------------------
 count_omp_thread()

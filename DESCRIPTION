@@ -1,6 +1,6 @@
 Package: bartcs
 Title: Bayesian Additive Regression Trees for Confounder Selection
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: 
     person("Yeonghoon", "Yoo", , "yooyh.stat@gmail.com", role = c("aut", "cre"))
 Description: Fit Bayesian Regression Additive Trees (BART) models to
@@ -11,8 +11,8 @@ License: GPL (>= 3)
 URL: https://github.com/yooyh/bartcs
 BugReports: https://github.com/yooyh/bartcs/issues
 Depends: R (>= 3.4.0)
-Imports: ggcharts, ggplot2, invgamma, MCMCpack, Rcpp (>= 0.11.0),
-        rlang, rootSolve, stats
+Imports: coda (>= 0.4.0), ggcharts, ggplot2, invgamma, MCMCpack, Rcpp
+        (>= 0.11.0), rlang, rootSolve, stats
 Suggests: knitr, microbenchmark, rmarkdown
 LinkingTo: Rcpp
 VignetteBuilder: knitr
@@ -20,8 +20,8 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 NeedsCompilation: yes
-Packaged: 2023-03-09 05:00:48 UTC; yooyh
+Packaged: 2023-05-01 11:52:13 UTC; yooyh
 Author: Yeonghoon Yoo [aut, cre]
 Maintainer: Yeonghoon Yoo <yooyh.stat@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-03-09 08:50:08 UTC
+Date/Publication: 2023-05-01 12:10:02 UTC
