@@ -406,7 +406,7 @@ effect (ATE) and possible outcome Y1 and Y0.</p>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="fu">mean</span>(ihdp<span class="sc">$</span>mu0)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>mu0</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.432513</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((<span class="fu">unlist</span>(fit<span class="sc">$</span>mcmc_outcome[, <span class="st">&quot;ATE&quot;</span>]) <span class="sc">-</span> ATE)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((<span class="fu">unlist</span>(fit<span class="sc">$</span>mcmc_list[, <span class="st">&quot;ATE&quot;</span>]) <span class="sc">-</span> ATE)<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>mse</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.01311197</span></span></code></pre></div>
 <p>True values of ATE, mu1 and mu0 all lies in 95% credible interval.
@@ -476,7 +476,7 @@ effects or other parameters.</p>
 components of <code>bartcs</code> object. Components with
 <code>mcmc_</code> prefix are <code>mcmc.list</code> object from
 <code>coda</code> package.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>coda<span class="sc">::</span><span class="fu">gelman.diag</span>(fit<span class="sc">$</span>mcmc_outcome[, <span class="st">&quot;ATE&quot;</span>])</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>coda<span class="sc">::</span><span class="fu">gelman.diag</span>(fit<span class="sc">$</span>mcmc_list[, <span class="st">&quot;ATE&quot;</span>])</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Potential scale reduction factors:</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Point est. Upper C.I.</span></span>
@@ -526,8 +526,8 @@ the model with most parameters set to 1.</p>
 <span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; overflows</span></span>
 <span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Unit: milliseconds</span></span>
 <span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      expr      min       lq     mean   median       uq       max neval</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    simple 48.79529 55.58415 60.27889 60.05668 65.21317  71.22167    50</span></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  parallel 45.66416 49.35908 52.83666 50.50403 53.44920 131.39823    50</span></span></code></pre></div>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    simple 47.54364 57.14810 62.59434 61.85543 67.87324  76.17726    50</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  parallel 44.48808 48.67135 52.70246 51.11472 53.57978 128.82364    50</span></span></code></pre></div>
 <p>Result show that parallelization reduces computation time.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
