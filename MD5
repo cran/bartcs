@@ -1,9 +1,9 @@
-5522b0978ffa47c1bb830aacd68860f8 *DESCRIPTION
+c55efc7525e5571d4bde94fbd254ca5c *DESCRIPTION
 a7d7116d166572e6104f932d76ec157d *NAMESPACE
-a38702015aa90578d877b8c937fdde5d *NEWS.md
+025111a5b41f762f5808a3c571d2dad2 *NEWS.md
 fc58045ce849b4c34433e97dbdc7ccb6 *R/RcppExports.R
 e911a50f96a12d11bb0de693e0954389 *R/bart.R
-4c03dd57865617a1e60572a67b5bd5f5 *R/bartcs-package.R
+c7eba3bc976e1c90440b77b0324b6725 *R/bartcs-package.R
 bf1cdcb671ce3446c905eaffb517f7f2 *R/ihdp.R
 0d56eb0880315ed40fc83320045d7295 *R/pip_plot.R
 1e5896a4b45f72eb6bd346fc0a7d2e64 *R/plot.R
@@ -20,9 +20,9 @@ ffd8f67176bd1fe44b57d84c9448b4a9 *data/ihdp.rda
 3263234b65b0c6265c2a574002112d22 *inst/CITATION
 f7c8e226100099e48971818357801fdc *inst/doc/bartcs.R
 c1e3ffde69725cdccf0ad3033beadc41 *inst/doc/bartcs.Rmd
-0a4d19b4da91cf04a722643a86f82cb0 *inst/doc/bartcs.html
+4650554e98ed90eeca987330d825f41e *inst/doc/bartcs.html
 75a0590678a47623e227584f9d83b533 *man/bart.Rd
-38ec4dc4969d22cfc557dc07e6c9eb3a *man/bartcs-package.Rd
+68b959ba2c54024fac557cf4733fbd7f *man/bartcs-package.Rd
 ecc9cc66582ef1ce17705ec9f38ccc42 *man/count_omp_thread.Rd
 3db5e00a53919a2a531cf31fe741c875 *man/ihdp.Rd
 fc16f9b4ec4e790e6fc91df4f289080b *man/plot.bartcs.Rd
@@ -46,5 +46,4 @@ f0737265cf437cc187b23f2b746c0c05 *src/grow.cpp
 e5aadb41bc4df56fc4ddeb70025a742d *src/util.cpp
 fb9b35a7eb56b5068d7610820d82df0d *src/util.h
 ce96245b4761cedc43c4f892a1245a06 *vignettes/REFERENCES.bib
-41cea40ff165a00fabe89b64beb3960a *vignettes/article.pdf
 c1e3ffde69725cdccf0ad3033beadc41 *vignettes/bartcs.Rmd
